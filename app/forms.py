@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Blog
+from .models import User, Blog, Appointment
 
 
 class UserRegister(UserCreationForm):
@@ -61,3 +61,14 @@ class BlogCreation(forms.ModelForm):
         model = Blog
         fields = ['title', 'summary',
                   'content', 'blog_category', 'is_draft']
+
+
+class AppointmentCreation(forms.ModelForm):
+    app_date = forms.DateField(label='Enter the date for the appointment: ',
+                               widget=forms.DateInput(attrs={'class': 'form-control'}))
+    app_time = forms.TimeField(
+        label='Enter the time for the appointment: ', widget=forms.TimeInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Appointment
+        fields = ['app_date', 'app_time']

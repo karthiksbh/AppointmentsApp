@@ -76,3 +76,15 @@ class Blog(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class Appointment(models.Model):
+    doctor_name = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='%(class)s_requests_doctor')
+    patient_name = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='%(class)s_requests_patient')
+    app_date = models.DateField()
+    app_time = models.TimeField()
+
+    def __str__(self):
+        return str(self.id)

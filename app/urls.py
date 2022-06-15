@@ -17,5 +17,8 @@ urlpatterns = [
     path('heartdis/', views.heartdis, name='heartdis'),
     path('covid19/', views.covid19, name='covid19'),
     path('immun/', views.immun, name='immun'),
+    path('appoint/', views.appointment, name='appoint'),
+    path('formapp/<int:pk>', views.create_appoint, name='appcreate'),
+    path('myapps/', views.view_allapp, name='myapps'),
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout')
 ]

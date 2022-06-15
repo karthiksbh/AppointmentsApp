@@ -1,11 +1,15 @@
 from unicodedata import category
 from django.shortcuts import render, redirect
-from .forms import UserRegister, LoginForm, BlogCreation
-from . models import User, Blog
+from .forms import AppointmentCreation, UserRegister, LoginForm, BlogCreation
+from . models import Appointment, User, Blog
 from django.db.models import Q
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib import messages
+from datetime import datetime, timedelta
+import pickle
+from apiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
 
 
 def home(request):
@@ -154,3 +158,94 @@ def covid19(request):
 def immun(request):
     data = Blog.objects.filter(is_draft=False, blog_category='Immunization')
     return render(request, 'blogs.html', {'data': data})
+
+
+def appointment(request):
+    data = User.objects.filter(is_doctor=True)
+    print(data)
+    return render(request, 'appointment.html', {'data': data})
+
+
+def create_appoint(request, pk):
+    doctor = User.objects.get(Q(pk=pk))
+    first_name = doctor.first_name
+    last_name = doctor.last_name
+    full_name = str(first_name) + " " + str(last_name)
+    if request.method == 'POST':
+        form = AppointmentCreation(request.POST)
+        if form.is_valid():
+            app_date = form.cleaned_data['app_date']
+            location = doctor.City
+            user = request.user
+            docof = User.objects.get(Q(username=doctor.username))
+            app_time = form.cleaned_data['app_time']
+            appoint = Appointment(
+                doctor_name=docof, patient_name=user, app_date=app_date, app_time=app_time)
+            appoint.save()
+            calendar_app(full_name, app_date, app_time, location)
+            messages.success(
+                request, 'Your Appointment has been scheduled')
+            data = Appointment.objects.filter(patient_name=request.user)
+            return render(request, 'viewappoints.html', {'data': data})
+        else:
+            msg = 'Errors while validating the form. Try Again!'
+            return render(request, 'appointform.html', {'form': form, 'msg': msg})
+    else:
+        form = AppointmentCreation()
+        return render(request, 'appointform.html', {'form': form, 'doctor': full_name})
+
+
+def calendar_app(doctor, dateof, timeof, city):
+    scopes = ['https://www.googleapis.com/auth/calendar']
+    flow = InstalledAppFlow.from_client_secrets_file(
+        "app\client_secret.json", scopes=scopes)
+    # credentials = flow.run_console()
+    # pickle.dump(credentials, open("token.pkl", "wb"))
+
+    credentials = pickle.load(open("token.pkl", "rb"))
+    service = build("calendar", "v3", credentials=credentials)
+    result = service.calendarList().list().execute()
+    calendar_id = result['items'][1]['id']
+    result = service.events().list(calendarId=calendar_id).execute()
+
+    date_of = dateof.strftime("%d")
+    month_of = dateof.strftime("%m")
+    year_of = dateof.strftime("%Y")
+    hour_of = timeof.strftime("%H")
+    min_of = timeof.strftime("%M")
+    sec_of = timeof.strftime("%S")
+
+    start_time = datetime(int(year_of), int(month_of), int(
+        date_of), int(hour_of), int(min_of), int(sec_of))
+    end_time = start_time + timedelta(minutes=45)
+    timezone = 'Asia/Kolkata'
+
+    description = "Appointment with Doctor " + str(doctor)
+
+    event = {
+        'summary': 'Doctor Appointment',
+        'location': str(city),
+        'description': description,
+        'start': {
+            'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+            'timeZone': timezone,
+        },
+        'end': {
+            'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+            'timeZone': timezone,
+        },
+        'reminders': {
+            'useDefault': False,
+            'overrides': [
+                {'method': 'email', 'minutes': 24*60},
+                {'method': 'popup', 'minutes': 15},
+            ],
+        },
+    }
+
+    service.events().insert(calendarId=calendar_id, body=event).execute()
+
+
+def view_allapp(request):
+    data = Appointment.objects.filter(patient_name=request.user)
+    return render(request, 'viewappoints.html', {'data': data})
