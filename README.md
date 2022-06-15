@@ -1,5 +1,5 @@
-# Blog Application for Doctors and Patient
-
+# Application to create Appointments for Doctors and Patient
+<!-- 
 This is a blog application where doctors can upload blogs in various categories and the patients can view these blogs. 
 
 Types of Users: Doctors who can upload the blogs or create drafts and Patients who can view only the uploaded blogs.
@@ -27,3 +27,4 @@ django: pip install django
 Step 1: Run python manage.py runserver
 
 Step 2: Go to the Browser and enter http://127.0.0.1:8000/
+ -->
