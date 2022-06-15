@@ -1,4 +1,4 @@
-# Application to create Appointments for Doctors and Patient
+<!-- # Application to create Appointments for Doctors and Patient -->
 <!-- 
 This is a blog application where doctors can upload blogs in various categories and the patients can view these blogs. 
 
