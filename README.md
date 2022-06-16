@@ -37,12 +37,6 @@ Step 1: Run python manage.py runserver
 Step 2: Go to the Browser and enter http://127.0.0.1:8000/
 
 
-# To start the server and view the website
-Step 1: Run python manage.py runserver
-
-Step 2: Go to the Browser and enter http://127.0.0.1:8000/
-
-
 # Screenshots of the application:
 
 1) Home Page: 
@@ -50,28 +44,19 @@ Step 2: Go to the Browser and enter http://127.0.0.1:8000/
 <img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/172517373-ca37a776-b66c-4782-9e87-5dcde5e2f118.png">
 
 
-2) Blogs Dashboard for the Patient with categories(After logging in a patient): 
+2) Page to select the doctor and book the appointment: 
 
-This displays the blogs of all the doctors that are present and not just the logged in doctor.
+This displays the list of all the doctors that are present for booking.
 
-<img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/173212246-db512deb-e58b-4c39-8d6d-ecf583785ac6.png">
-
-
-3) Blog Dashboard for Doctor with categories and other options(After logging in a doctor): 
-
-<img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/173212056-93435d61-2832-419f-aa8a-3f2c1caa1443.png">
+<img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/174001198-4d050adf-ca06-41b6-a220-67478a8433f8.png">
 
 
-4) Current Blogs of the Logged In Doctor: 
+3) Form for booking the appointment: (User can enter the date and time when he/she wants the appointment)
 
-<img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/173212066-e9084986-002d-40eb-9b65-ca54c73413bc.png">
-
-
-5) Drafts of the Logged In Doctor(which are not published): 
-
-<img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/173212146-946d2029-2c9d-46ab-8186-563fbc9e89db.png">
+<img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/174001401-6c680009-5762-4930-95e3-de16997bb2ed.png">
 
 
-6) Page to Create Blogs(for the doctor):
+4) Page Showing all the appointments of the user: 
 
-<img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/173212167-d7e91911-1bf8-49c7-9f54-73e7a389bcdc.png">
+<img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/174001668-961418aa-1cb5-4506-abcc-8020e1115065.png">
+
