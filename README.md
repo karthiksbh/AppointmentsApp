@@ -44,6 +44,7 @@ Step 2: Go to the Browser and enter http://127.0.0.1:8000/
 <img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/172517373-ca37a776-b66c-4782-9e87-5dcde5e2f118.png">
 
 
+
 2) Page to select the doctor and book the appointment: 
 
 This displays the list of all the doctors that are present for booking.
@@ -51,9 +52,11 @@ This displays the list of all the doctors that are present for booking.
 <img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/174001198-4d050adf-ca06-41b6-a220-67478a8433f8.png">
 
 
+
 3) Form for booking the appointment: (User can enter the date and time when he/she wants the appointment)
 
 <img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/174001401-6c680009-5762-4930-95e3-de16997bb2ed.png">
+
 
 
 4) Page Showing all the appointments of the user: 
