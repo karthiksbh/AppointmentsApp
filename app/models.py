@@ -1,7 +1,7 @@
 from email.policy import default
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+import datetime
 # Create your models here.
 
 
@@ -78,6 +78,13 @@ class Blog(models.Model):
         return str(self.id)
 
 
+SPECIALITY = (('Orthopedics', 'Orthopedics'),
+              ('Obstetrics and Gynecology', 'Obstetrics and Gynecology'),
+              ('Dermatology', 'Dermatology'),
+              ('Pediatrics', 'Pediatrics'),
+              ('Internal Medicine', 'Internal Medicine'))
+
+
 class Appointment(models.Model):
     doctor_name = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='%(class)s_requests_doctor')
@@ -85,6 +92,9 @@ class Appointment(models.Model):
         User, on_delete=models.CASCADE, related_name='%(class)s_requests_patient')
     app_date = models.DateField()
     app_time = models.TimeField()
+    end_time = models.TimeField()
+    speciality = models.CharField(
+        choices=SPECIALITY, max_length=100)
 
     def __str__(self):
         return str(self.id)

@@ -43,11 +43,13 @@
     {% for i in data %}
     <div class="card">
       <div class="card__body">
+        <span class="tag tag-blue">{{i.speciality}}</span>
         <h4>Appointment {{forloop.counter}}</h4>
         <h6 class="text">Doctor's Name: {{i.doctor_name}}</h6>
         <h6 class="text">Patient's Name: {{i.patient_name}}</h6>
         <h6 class="text">Date of Appointment: {{i.app_date}}</h6>
-        <h6 class="text">Time of Appointment: {{i.app_time}}</h6>
+        <h6 class="text">Start Time of Appointment: {{i.app_time}}</h6>
+        <h6 class="text">End Time of Appointment: {{i.end_time}}</h6>
       </div>
     </div>
     {% endfor %}

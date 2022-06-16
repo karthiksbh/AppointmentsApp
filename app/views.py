@@ -179,10 +179,12 @@ def create_appoint(request, pk):
             user = request.user
             docof = User.objects.get(Q(username=doctor.username))
             app_time = form.cleaned_data['app_time']
+            speciality = form.cleaned_data['speciality']
+            end_time = calendar_app(full_name, app_date, app_time, location)
+            print(type(end_time))
             appoint = Appointment(
-                doctor_name=docof, patient_name=user, app_date=app_date, app_time=app_time)
+                doctor_name=docof, patient_name=user, app_date=app_date, app_time=app_time, speciality=speciality, end_time=end_time)
             appoint.save()
-            calendar_app(full_name, app_date, app_time, location)
             messages.success(
                 request, 'Your Appointment has been scheduled')
             data = Appointment.objects.filter(patient_name=request.user)
@@ -244,6 +246,8 @@ def calendar_app(doctor, dateof, timeof, city):
     }
 
     service.events().insert(calendarId=calendar_id, body=event).execute()
+
+    return end_time
 
 
 def view_allapp(request):

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Blog, Appointment
+from .models import SPECIALITY, User, Blog, Appointment
 
 
 class UserRegister(UserCreationForm):
@@ -68,7 +68,9 @@ class AppointmentCreation(forms.ModelForm):
                                widget=forms.DateInput(attrs={'class': 'form-control'}))
     app_time = forms.TimeField(
         label='Enter the time for the appointment: ', widget=forms.TimeInput(attrs={'class': 'form-control'}))
+    speciality = forms.ChoiceField(choices=SPECIALITY,
+                                   label='Required Speciality', widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Appointment
-        fields = ['app_date', 'app_time']
+        fields = ['speciality', 'app_date', 'app_time']
